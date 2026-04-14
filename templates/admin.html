@@ -1,0 +1,260 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    table {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    td, th {
+        white-space: nowrap;
+    }
+    .card {
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .admin-header {
+        background: linear-gradient(135deg, #6b21a8, #a855f7);
+        color: white;
+        padding: 15px 20px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        box-shadow: 0 5px 15px rgba(124, 58, 237, 0.25);
+    }
+
+    .admin-header h2 {
+        margin: 0;
+        font-weight: 600;
+        font-size: 28px;
+    }
+
+    .admin-header p {
+        margin: 5px 0 0;
+        opacity: 0.9;
+        font-size: 14px;
+    }
+    .heatmap {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 10px;
+    }
+
+    .heatmap-box {
+        height: 70px;
+        border-radius: 10px;
+        background: #a78bfa;   /* force visible color */
+        color: black;          /* make text visible */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        font-weight: 600;
+        border: 1px solid #ddd;
+    }
+
+    .heatmap-box:hover {
+        transform: scale(1.05);
+    }
+
+    /* color levels */
+    .level-0 { background: #ede9fe; color:#555; }
+    .level-1 { background: #c4b5fd; }
+    .level-2 { background: #a78bfa; }
+    .level-3 { background: #8b5cf6; }
+    .level-4 { background: #6d28d9; }
+        
+
+</style>
+
+<div class="admin-header">
+    <h2>Admin Dashboard</h2>
+    <p>Faculty Recruitment Analytics</p>
+</div>
+
+<div class="row text-center mb-4">
+
+    <div class="col-md-3">
+        <div class="card p-3">
+            <h4>{{ total }}</h4>
+            <small>Total Candidates</small>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card p-3">
+            <h4>{{ attended }}</h4>
+            <small>Interview Attended</small>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card p-3">
+            <h4>{{ selected }}</h4>
+            <small>Selected</small>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card p-3">
+            <h4>{{ rejected }}</h4>
+            <small>Rejected</small>
+        </div>
+    </div>
+
+</div>
+<div class="table-responsive">
+<table class="table table-hover align-middle text-center">
+
+<thead class="table-light">
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Email</th>
+<th>Department</th>
+<th>Post</th>
+<th>Resume</th>
+<th>Semantic</th>
+<th>Interview</th>
+<th>Psychometric</th>
+<th>Final</th>
+<th>Status</th>
+<th>Report</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody>
+{% for c in candidates %}
+<tr>
+<td>{{ c.id }}</td>
+<td>{{ c.name }}</td>
+<td>{{ c.email }}</td>
+<td>{{ c.department }}</td>
+<td>{{ c.post }}</td>
+
+<td>
+<a href="{{ url_for('static', filename='resumes/' + c.resume.split('/')[-1]) }}" class="btn btn-sm btn-primary">
+Resume
+</a>
+</td>
+
+<td>{{ c.semantic or "-" }}</td>
+<td>{{ c.interview or "-" }}</td>
+<td>{{ c.psychometric or "-" }}</td>
+<td><b>{{ c.final or "-" }}</b></td>
+
+<td>
+<span class="badge 
+{% if c.status == 'Selected' %}bg-success
+{% elif c.status == 'Rejected' %}bg-danger
+{% else %}bg-secondary{% endif %}">
+{{ c.status }}
+</span>
+</td>
+
+<td>
+<a href="/report/{{c.id}}" class="btn btn-sm btn-info">
+Report
+</a>
+</td>
+
+<td>
+<a href="/admin/evaluate/{{ c.id }}" class="btn btn-sm btn-warning">
+Evaluate
+</a>
+<a href="/delete/{{ c.id }}" class="btn btn-sm btn-danger"
+   onclick="return confirm('Delete this candidate?')">
+    Delete
+</a>
+</td>
+
+</tr>
+{% endfor %}
+</tbody>
+
+</table>
+</div>
+
+<form method="GET" class="mb-3 d-flex gap-2">
+
+    <!-- Month -->
+    <select name="month" class="form-select w-auto">
+        {% for m in range(1,13) %}
+            <option value="{{m}}" {% if m == selected_month %}selected{% endif %}>
+                {{ ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][m-1] }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <!-- Year -->
+    <select name="year" class="form-select w-auto">
+        {% for y in range(2023, 2031) %}
+            <option value="{{y}}" {% if y == selected_year %}selected{% endif %}>
+                {{y}}
+            </option>
+        {% endfor %}
+    </select>
+
+    <button class="btn btn-primary">Apply</button>
+
+</form>
+
+
+<div class="card p-4 mt-4">
+    <h5 class="mb-3">Monthly Activity</h5>
+
+    <!-- Header -->
+    <div class="heatmap mb-2">
+        <div><b>Mon</b></div>
+        <div><b>Tue</b></div>
+        <div><b>Wed</b></div>
+        <div><b>Thu</b></div>
+        <div><b>Fri</b></div>
+        <div><b>Sat</b></div>
+        <div><b>Sun</b></div>
+    </div>
+
+    <!-- Dates -->
+    <div class="heatmap">
+        {% for week in monthly_calendar %}
+            {% for d in week %}
+                {% if d %}
+                <a href="?month={{ selected_month }}&year={{ selected_year }}&day={{ d.day }}" style="text-decoration:none; color:inherit;">
+                    <div class="heatmap-box">
+                        <small>{{ d.day }}</small>
+                        <div>{{ d.attended }}</div>
+                    </div>
+                </a>
+                {% else %}
+                    <div class="heatmap-box" style="visibility:hidden;"></div>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        {% if selected_day %}
+        <div style="
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 999;
+        ">
+            <div class="card p-4" style="width:300px;">
+                <h5 class="mb-3">Details for {{ selected_day }}/{{ selected_month }}/{{ selected_year }}</h5>
+                <p>👥 Attended: {{ selected_day_data.attended }}</p>
+                <p>✅ Selected: {{ selected_day_data.selected }}</p>
+                <p>❌ Rejected: {{ selected_day_data.rejected }}</p>
+
+                <div style="text-align:center; margin-top:10px;">
+                    <a href="?month={{ selected_month }}&year={{ selected_year }}" class="btn btn-sm btn-secondary">
+                        Close
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

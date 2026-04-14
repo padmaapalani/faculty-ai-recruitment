@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card-custom p-4 col-md-4 mx-auto">
+
+<h3 class="text-center mb-4">Admin Login</h3>
+
+<form method="POST">
+
+<label>Username</label>
+<input type="text" name="username" class="form-control mb-3" required>
+
+<label>Password</label>
+<input type="password" name="password" class="form-control mb-3" required>
+
+<div class="text-center">
+<button class="btn btn-primary">Login</button>
+</div>
+
+</form>
+
+</div>
+
+{% endblock %}

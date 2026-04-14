@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div style="
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin-top:60px;
+">
+
+    <div style="
+        width:80%;
+        max-width:900px;
+        background: lavenderblush;
+        padding:40px;
+        border-radius:20px;
+        text-align:center;
+        box-shadow: 0 8px 30px rgba(124, 58, 237, 0.15);
+    ">
+
+        <h2 style="
+            color:#6b21a8;
+            margin-bottom:30px;
+        ">
+            Technical Test Completed
+        </h2>
+
+        <!-- NEXT BUTTON -->
+        <a href="/psychometric/{{candidate_id}}" style="
+            display:inline-block;
+            padding:12px 25px;
+            margin-bottom:15px;
+            border-radius:10px;
+            background: linear-gradient(to right, #d946ef, #a855f7);
+            color:white;
+            text-decoration:none;
+            font-weight:500;
+        ">
+            Proceed to Psychometric Assessment
+        </a>
+
+        <br>
+
+        <!-- HOME BUTTON -->
+        <a href="/" style="
+            display:inline-block;
+            padding:10px 20px;
+            border-radius:10px;
+            background: linear-gradient(to right, #d946ef, #a855f7);
+            color:white;
+            text-decoration:none;
+            font-weight:500;
+        ">
+            Go Home
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

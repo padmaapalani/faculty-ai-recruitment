@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if psychometric_completed %}
+
+<div class="card card-custom p-4 text-center mt-5">
+    <h2 style="color:#5e3a87;"> Psychometric Assessment Completed</h2>
+    
+
+<div class="text-center mt-4">
+
+<a href="/report/{{candidate_id}}" target="_blank" class="btn btn-primary">
+    View Report
+</a>
+
+<br><br>
+
+<a href="/" class="btn btn-primary">
+Go Home
+</a>
+
+</div>
+</div>
+
+{% else %}
+
+<div class="container mt-5">
+    <div class="card card-custom p-4">
+
+        <h2 class="text-center mb-4" style="color:#5e3a87;">
+            Evaluation Result
+        </h2>
+
+        <div class="row text-center mb-4">
+            <div class="col-md-4">
+                <h5>Semantic Score</h5>
+                <p class="fw-bold fs-5">{{ semantic_score }}</p>
+            </div>
+
+            <div class="col-md-4">
+                <h5>Research Score</h5>
+                <p class="fw-bold fs-5">{{ research_score }}</p>
+            </div>
+
+            <div class="col-md-4">
+                <h5>Teaching Score</h5>
+                <p class="fw-bold fs-5">{{ teaching_score }}</p>
+            </div>
+        </div>
+
+        <hr>
+
+        <p><b>Research Summary:</b><br> {{ research_summary }}</p>
+        <p><b>Teaching Summary:</b><br> {{ teaching_summary }}</p>
+        <p><b>Overall Summary:</b><br> {{ overall_summary }}</p>
+
+        <hr>
+
+        <h4 class="text-center">
+            Status:
+            <span class="fw-bold {% if shortlist == 'Yes' %}text-success{% else %}text-danger{% endif %}">
+                {{ shortlist }}
+            </span>
+        </h4>
+
+        <div class="text-center mt-4">
+
+            {% if shortlist == "Yes" %}
+            <div class="alert alert-success mt-3">
+            Shortlisted candidate. Interview invitation email has been sent.
+            </div>
+            {% endif %}
+
+            <a href="/" class="btn btn-outline-secondary">
+                Go Back
+            </a>
+
+        </div>
+
+    </div>
+</div>
+
+{% endif %}
+
+{% endblock %}

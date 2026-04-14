@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- HEADER BAR -->
+<div style="
+    background: linear-gradient(135deg, #6b21a8, #a855f7);
+    padding: 15px;
+    border-radius: 12px;
+    color: lavenderblush;
+    margin-bottom: 20px;
+">
+    <h2 style="margin:0; font-size: 28px;">Select 5 Subjects</h2>
+    <p style="margin:0; font-size: 14px;">Choose your preferred topics for the test</p>
+</div>
+
+<form action="/generate-test/{{candidate_id}}" method="post">
+
+<!-- CARD GRID -->
+<div style="
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+">
+
+{% for s in subjects %}
+
+<label style="cursor:pointer;">
+    <div style="
+        padding: 15px;
+        border-radius: 12px;
+        border: 1px solid #ddd;
+        background: lavenderblush;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        transition: 0.2s;
+    "
+    onmouseover="this.style.transform='scale(1.03)'"
+    onmouseout="this.style.transform='scale(1)'"
+    >
+
+        <input type="checkbox" name="subjects" value="{{s[0]}}" 
+               style="margin-right:10px;">
+
+        <span style="font-weight: 500;">{{s[0]}}</span>
+
+    </div>
+</label>
+
+{% endfor %}
+
+</div>
+<br>
+<br>
+<br>
+<br>
+<!-- BUTTON -->
+<div style="text-align:center; margin-top: 25px;">
+    <button type="submit"
+        style="
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            background: #7b2ff7;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        ">
+        Start Test
+    </button>
+</div>
+
+</form>
+
+{% endblock %}

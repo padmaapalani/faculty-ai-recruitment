@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card-custom p-4 mb-5">
+
+<h2 class="text-center mb-4" style="color:#5e3a87;">
+Apply for {{ role_title }}
+</h2>
+
+<form method="POST" action="/evaluate" enctype="multipart/form-data">
+
+<div class="row">
+<p><strong>Requirements:</strong></p>
+<p style="white-space: pre-line;">{{ job_description }}</p>
+<!-- Name -->
+<div class="col-md-6 mb-3">
+<label class="form-label">Name</label>
+<input type="text" name="name" class="form-control" required>
+</div>
+
+<!-- Email -->
+<div class="col-md-6 mb-3">
+<label class="form-label">E-mail</label>
+<input type="email" name="email" class="form-control" required>
+</div>
+
+<!-- Phone -->
+<div class="col-md-6 mb-3">
+<label class="form-label">Phone</label>
+<input type="text" name="phone" class="form-control" required>
+</div>
+
+<!-- Gender -->
+<div class="col-md-6 mb-3">
+<label class="form-label d-block">Gender</label>
+
+<div class="form-check form-check-inline">
+<input class="form-check-input" type="radio" name="gender" value="Male" required>
+<label class="form-check-label">Male</label>
+</div>
+
+<div class="form-check form-check-inline">
+<input class="form-check-input" type="radio" name="gender" value="Female">
+<label class="form-check-label">Female</label>
+</div>
+
+</div>
+
+<!-- Post Applied For -->
+<div class="col-md-12 mb-3">
+<label class="form-label">Post Applied for</label>
+
+<select name="post" class="form-control" required>
+<option value="">—Please choose an option—</option>
+<option>Assistant Professor</option>
+<option>Associate Professor</option>
+<option>Professor</option>
+</select>
+
+</div>
+
+<!-- Hidden Department -->
+<input type="hidden" name="department" value="{{ dept }}">
+
+<!-- Resume Upload -->
+<div class="col-md-12 mb-4">
+<label class="form-label">
+Please Upload Your Resume
+</label>
+
+<input type="file" name="resume" class="form-control" required>
+</div>
+
+<!-- Hidden Job Description -->
+<textarea name="job_description" hidden>{{ job_description }}</textarea>
+
+
+<div class="text-center">
+
+<button class="btn btn-success px-5 py-2">
+Submit
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+{% endblock %}

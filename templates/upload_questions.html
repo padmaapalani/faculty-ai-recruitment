@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- HEADER BAR -->
+<div style="
+    background: linear-gradient(135deg, #6b21a8, #a855f7);
+    padding: 15px;
+    border-radius: 12px;
+    color: white;
+    margin-bottom: 30px;
+">
+    <h2 style="margin:0; font-size: 28px;">Upload Questions CSV</h2>
+    <p style="margin:0; font-size: 14px;">Upload question dataset for assessment</p>
+</div>
+
+<!-- CENTER CARD -->
+<div style="display:flex; justify-content:center;">
+
+    <div style="
+        width: 400px;
+        padding: 30px;
+        border-radius: 12px;
+        background: lavenderblush;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        text-align: center;
+    ">
+
+        <h3 style="margin-bottom:20px;">Select CSV File</h3>
+
+        <form method="POST" enctype="multipart/form-data">
+
+            <!-- FILE INPUT -->
+            <input type="file" name="file" required
+                style="
+                    margin-bottom: 15px;
+                ">
+
+            <!-- BUTTON -->
+            <button type="submit"
+                style="
+                    width: 100%;
+                    padding: 12px;
+                    border: none;
+                    border-radius: 8px;
+                    background: #7b2ff7;
+                    color: white;
+                    font-weight: bold;
+                    cursor: pointer;
+                ">
+                Upload File
+            </button>
+
+        </form>
+
+        <!-- INFO TEXT -->
+        <p style="margin-top:15px; font-size:12px; color:gray;">
+            Only CSV files are supported.
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}

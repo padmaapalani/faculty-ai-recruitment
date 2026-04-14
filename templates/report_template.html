@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<style>
+
+/* PRINT FIX */
+@media print {
+    body {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        background: linear-gradient(135deg, #fce7f3, #e9d5ff) !important;
+        zoom: 90%;
+    }
+    .no-print {
+        display: none !important;
+    }
+}
+
+@page {
+    margin: 20px;
+}
+
+/* BODY */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #fce7f3, #e9d5ff);
+    padding: 30px;
+}
+
+/* HEADER */
+.header {
+    text-align: center;
+    padding: 20px;
+    font-size: 26px;
+    font-weight: 600;
+    color: #6b21a8;
+}
+
+/* CARD (same as your portal) */
+.card {
+    background: lavenderblush !important;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(124, 58, 237, 0.15);
+    width: 70%;
+    margin: 20px auto;
+}
+
+/* VERTICAL STACK */
+.score-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;   /* ✅ THIS fixes your issue */
+}
+/* EACH SCORE BOX */
+.score-box {
+    width: 60%;
+    max-width: 550px;
+    margin: 8px auto;          /* ⬅ reduce gap */
+    padding: 12px 14px;       /* ⬅ reduce height */
+    background: #f3e8ff !important;
+    border-radius: 12px;
+    text-align: center;
+}
+/* HOVER EFFECT (OPTIONAL BUT NICE) */
+.score-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.2);
+}
+
+/* TITLE */
+.score-box h4 {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #6b21a8;
+}
+
+/* SCORE NUMBER */
+.score-box h1 {
+    margin: 10px 0;
+    font-size: 32px;
+    color: #7c3aed;
+}
+
+/* PROGRESS */
+.progress {
+    width: 80%;              /* 🔥 not full width */
+    margin: 10px auto;       /* center it */
+    background: #ddd;
+    border-radius: 20px;
+    height: 8px;
+}
+
+.progress-bar {
+    height: 8px;
+    background: linear-gradient(to right, #d946ef, #a855f7);
+    border-radius: 20px;
+}
+
+/* STATUS BADGE */
+.status-wrapper {
+    text-align: left;
+    margin-top: 25px;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* BUTTON (same gradient as portal) */
+.download-btn {
+    margin-top: 25px;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(to right, #d946ef, #a855f7);
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.download-btn:hover {
+    opacity: 0.9;
+}
+
+/* FOOTER */
+.footer {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 13px;
+    color: #7c3aed;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    Faculty Recruitment Assessment Report
+</div>
+
+<!-- INFO -->
+<div class="card">
+    <b>Name:</b> {{name}} <br><br>
+    <b>Email:</b> {{email}} <br><br>
+    <b>Department:</b> {{dept}} <br><br>
+    <b>Post:</b> {{post}}
+</div>
+
+<div class="card">
+
+    <!-- ROW 1 -->
+    <div style="display:flex; gap:20px; justify-content:center; margin-bottom:15px;">
+        
+        <div class="score-box" style="width:45%;">
+            <h4>Resume Score</h4>
+            <h1>{{resume_score}}</h1>
+        </div>
+
+        <div class="score-box" style="width:45%;">
+            <h4>Technical Score</h4>
+            <h1>{{tech_score}}</h1>
+        </div>
+
+    </div>
+
+    <!-- ROW 2 -->
+    <div style="display:flex; gap:20px; justify-content:center; margin-bottom:20px;">
+        
+        <div class="score-box" style="width:45%;">
+            <h4>Psychometric Score</h4>
+            <h1>{{psycho_score}}</h1>
+        </div>
+
+        <div class="score-box" style="width:45%;">
+            <h4>Final Score</h4>
+            <h1>{{final_score}}</h1>
+        </div>
+
+    </div>
+
+    <!-- ROW 3 (ANALYSIS FULL WIDTH) -->
+    <div style="text-align:left; padding:10px 20px;">
+
+        <h3>Technical Analysis</h3>
+        <div>Time Taken: <b>{{tech_time}}</b></div>
+
+        <hr>
+
+        <h3>Psychometric Analysis</h3>
+        <div>Time Taken: <b>{{psycho_time}}</b></div>
+
+        <div style="
+        margin-top:10px;
+        padding:10px;
+        border-radius:10px;
+        background: {{bg_color}};
+        color: {{text_color}};
+        display: inline-block;
+        margin-left: -10px;
+    ">
+        Psychometric fit: {{interpretation}}
+    </div>
+
+    </div>
+
+</div>
+
+<!-- BUTTON -->
+<div style="text-align:center;" class="no-print">
+    <button class="download-btn" onclick="window.print()">
+        Download as PDF
+    </button>
+</div>
+
+<!-- FOOTER -->
+<div class="footer no-print">
+    © 2026 AI-Driven Faculty Recruitment System
+</div>
+
+</body>
+</html>

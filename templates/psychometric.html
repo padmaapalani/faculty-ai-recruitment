@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+.question-text{
+    text-align: justify;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+.option-block{
+    margin-left: 20px;
+}
+
+.question-card{
+    background: lavenderblush;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* TIMER CENTER */
+.timer-box{
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    z-index: 1000;
+}
+</style>
+
+<!-- HEADER -->
+<div style="
+    background: linear-gradient(135deg, #6b21a8, #a855f7);
+    padding: 15px;
+    border-radius: 12px;
+    color: white;
+    margin-bottom: 30px;
+">
+    <h2 style="margin:0; font-size: 28px;">Psychometric Assessment</h2>
+    <p style="margin:0; font-size: 14px;">Answer honestly for accurate evaluation</p>
+
+    <!-- ✅ ADD THIS -->
+    <h4 style="margin-top:10px;">Welcome, {{ name }}</h4>
+</div>
+
+<!-- TIMER -->
+<div class="timer-box">
+    Time Left: <span id="timer">20:00</span>
+</div>
+
+<form id="psychoForm" action="/submit_psychometric/{{candidate_id}}" method="POST">
+
+{% for q in questions %}
+{% set q_index = loop.index0 %}
+
+<div class="question-card">
+
+<p class="question-text">
+<b>{{ loop.index }}. {{ q.question }}</b>
+</p>
+
+<div class="option-block">
+{% for option in q.options %}
+
+<label>
+<input type="radio"
+       name="q{{ q_index }}"
+       value="{{ loop.index }}"
+       required>
+
+{{ option }}
+</label>
+<br>
+
+{% endfor %}
+</div>
+
+</div>
+
+{% endfor %}
+
+<button class="btn btn-primary">Submit Psychometric Test</button>
+<input type="hidden" name="psycho_time" id="psycho_time">
+</form>
+
+<!-- TIMER SCRIPT -->
+<script>
+
+let timeLeft = 1200; // 20 minutes
+
+let timer = document.getElementById("timer");
+
+let countdown = setInterval(function(){
+
+    let minutes = Math.floor(timeLeft / 60);
+    let seconds = timeLeft % 60;
+
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+    timer.innerText = minutes + ":" + seconds;
+
+    timeLeft--;
+
+    if(timeLeft < 0){
+        clearInterval(countdown);
+        alert("Time is up! Submitting test...");
+        document.getElementById("psychoForm").submit();
+    }
+
+}, 1000);
+
+let startTime = new Date().getTime();
+
+document.getElementById("psychoForm").addEventListener("submit", function(){
+    let endTime = new Date().getTime();
+    let total = Math.floor((endTime - startTime)/1000);
+    document.getElementById("psycho_time").value = total;
+});
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 class="text-center mb-5" style="color:#5e3a87;">Faculty Openings</h2>
+
+<div class="row g-4">
+{% if request.args.get('applied') %}
+<script>
+alert("🎉 Congratulations! Your application has been submitted successfully.");
+</script>
+{% endif %}
+
+<!-- 1 -->
+<div class="col-md-4">
+<div class="card-custom p-4 text-center">
+<h5 class="fw-bold">Information Technology</h5>
+
+<p class="mt-3">
+Designation:<br>
+Assistant Professor / Associate Professor / Professor
+</p>
+
+<a href="/apply/it" class="btn btn-primary w-100">
+Submit Resume
+</a>
+</div>
+</div>
+
+<!-- 2 -->
+<div class="col-md-4">
+<div class="card-custom p-4 text-center">
+<h5 class="fw-bold">Computer Science</h5>
+
+<p class="mt-3">
+Designation:<br>
+Assistant Professor / Associate Professor / Professor
+</p>
+
+<a href="/apply/cse" class="btn btn-primary w-100">
+Submit Resume
+</a>
+</div>
+</div>
+
+<!-- 3 -->
+<div class="col-md-4">
+<div class="card-custom p-4 text-center">
+<h5 class="fw-bold">Civil Engineering</h5>
+
+<p class="mt-3">
+Designation:<br>
+Assistant Professor / Associate Professor / Professor
+</p>
+
+<a href="/apply/civil" class="btn btn-primary w-100">
+Submit Resume
+</a>
+</div>
+</div>
+
+<!-- 4 -->
+<div class="col-md-4">
+<div class="card-custom p-4 text-center">
+<h5 class="fw-bold">Mechanical Engineering</h5>
+
+<p class="mt-3">
+Designation:<br>
+Assistant Professor / Associate Professor / Professor
+</p>
+
+<a href="/apply/mech" class="btn btn-primary w-100">
+Submit Resume
+</a>
+</div>
+</div>
+
+<!-- 5 -->
+<div class="col-md-4">
+<div class="card-custom p-4 text-center">
+<h5 class="fw-bold">Electronics & Communication</h5>
+
+<p class="mt-3">
+Designation:<br>
+Assistant Professor / Associate Professor / Professor
+</p>
+
+<a href="/apply/ece" class="btn btn-primary w-100">
+Submit Resume
+</a>
+</div>
+</div>
+
+<!-- 6 -->
+<div class="col-md-4">
+<div class="card-custom p-4 text-center">
+<h5 class="fw-bold">Electrical & Electronics</h5>
+
+<p class="mt-3">
+Designation:<br>
+Assistant Professor / Associate Professor / Professor
+</p>
+
+<a href="/apply/eee" class="btn btn-primary w-100">
+Submit Resume
+</a>
+</div>
+</div>
+
+<!-- 7 -->
+<div class="col-md-4">
+<div class="card-custom p-4 text-center">
+<h5 class="fw-bold">Artificial Intelligence & Data Science</h5>
+
+<p class="mt-3">
+Designation:<br>
+Assistant Professor / Associate Professor / Professor
+</p>
+
+<a href="/apply/aids" class="btn btn-primary w-100">
+Submit Resume
+</a>
+</div>
+</div>
+
+<!-- 8 -->
+<div class="col-md-4">
+<div class="card-custom p-4 text-center">
+<h5 class="fw-bold">Department of Mathematics</h5>
+
+<p class="mt-3">
+Designation:<br>
+Assistant Professor / Associate Professor / Professor
+</p>
+
+<a href="/apply/maths" class="btn btn-primary w-100">
+Submit Resume
+</a>
+</div>
+</div>
+
+<!-- 9 -->
+<div class="col-md-4">
+<div class="card-custom p-4 text-center">
+<h5 class="fw-bold">Department of Physics</h5>
+
+<p class="mt-3">
+Designation:<br>
+Assistant Professor / Associate Professor / Professor
+</p>
+
+<a href="/apply/physics" class="btn btn-primary w-100">
+Submit Resume
+</a>
+</div>
+</div>
+
+<!-- 10 -->
+<div class="col-md-4">
+<div class="card-custom p-4 text-center">
+<h5 class="fw-bold">Department of Chemistry</h5>
+
+<p class="mt-3">
+Designation:<br>
+Assistant Professor / Associate Professor / Professor
+</p>
+
+<a href="/apply/chemistry" class="btn btn-primary w-100">
+Submit Resume
+</a>
+</div>
+</div>
+
+</div>
+
+{% endblock %}
